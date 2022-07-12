@@ -1,28 +1,65 @@
-#!/bin/curl
+#!/bin/bash
 
 currentVersion="0.0.1"
 
-httpSingleUpload()
-{
-    response=$(curl -A curl --upload-file "$1" "https://transfer.sh/$2") || { echo "Failure!"; return 1;}
+#########################################################
+# Download upload files with https://transfer.sh via curl
+# Globals:
+#   NONE
+# Arguments:
+#   $@
+# Outputs:
+#   Writes to stdout
+#########################################################
+
+# Upload function
+upload() {
+echo "test upload func call"  
 }
 
-printUploadResponse()
-{
-fileID=$(echo "$response" | cut -d "/" -f 4)
-  cat <<EOF
-Transfer File URL: $response
-EOF
+# Download function
+single_download() {
+echo "test download func call"
 }
 
-singleUpload()
-{
-  filePath=$(echo "$1" | sed s:"~":"$HOME":g)
-  if ! -f "$filePath" ;then { echo "Error: invalid file path"; return 1;}; fi
-  tempFileName=$(echo "$1" | sed "s/.*\///")
-  echo "Uploading $tempFileName"
-  httpSingleUpload "$filePath $tempFileName"
+
+
+# Prints download result
+print_download_response() {
+echo "test response func call"
 }
 
-singleUpload "$1" || exit 1
-printUploadResponse
+
+# help function
+help() {
+
+      echo -e "\n\033[33m Description: Bash tool to transfer files from the command line. 
+        
+        \033[32mUsage: 
+          -d  Download file from https://transfer.sh
+          -h  Show the help about application usage. 
+          -v  Show the app version.
+                       
+                \033[33m Examples:
+                \033[37m<./transfer.sh test.txt> \033[33mto upload single file.
+                \033[37m<./transfer.sh test.txt test2.txt ...> \033[33mto upload multiple files.
+                \033[37m<./transfer.sh -d > \033[33mto see application version.
+                \033[37m<./transfer.sh -v> \033[33mto see application version.
+                \033[37m<./transfer.sh -h> \033[33mto view help."
+}
+
+# main block function
+main() {
+  if [[ $1 == "-d" ]]; then
+    single_download "$@"
+  elif [[ $1 == "-v" ]]; then
+    echo "$currentVersion"
+  elif [[ $1 == "-h" ]]; then
+    help
+    else
+    upload "$@"
+  fi
+}
+
+# main call
+main "$@"
