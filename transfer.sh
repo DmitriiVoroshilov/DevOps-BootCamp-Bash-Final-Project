@@ -18,9 +18,9 @@ currentVersion="1.23.0"
 upload() {
   for i in "$@"; do
     file=$i
-    echo -e "\n\033[33m Uploading \033[37m"$i""
+    echo -e "\n\033[33m Uploading \033[37m""$i"""
     response=$(curl --progress-bar --upload-file "$1" "https://transfer.sh/$file") || { echo -e "\033[31m Failure!\033[37m"; return 1;}
-    echo -e "\033[32m Transfer File URL: "$response" \n" 
+    echo -e "\033[32m Transfer File URL: ""$response"" \n" 
   done
 }
 
@@ -30,8 +30,8 @@ single_download() {
     echo "Creating missing directory..."
     mkdir -p "$2/$3"
   fi
-  echo " Downloading "$4""
-  d_response=$(curl --progress-bar --create-dirs -o "$4" "https://transfer.sh/" --output-dir ./"$2"/"$3") || { echo -e "\033[31m Failure!\033[37m"; return 1;}
+  echo " Downloading ""$4"""
+  response=$(curl --progress-bar --create-dirs -o "$4" "https://transfer.sh/" --output-dir ./"$2"/"$3") || { echo -e "\033[31m Failure!\033[37m"; return 1;}
   printDownloadResponse
 }
 
