@@ -14,7 +14,11 @@ currentVersion="0.0.1"
 
 # Upload function
 upload() {
-echo "test upload func call"  
+  for i in "$@"; do
+    echo -e "\n\033[33m Uploading \033[37m"$i""
+    response=$(curl --progress-bar --upload-file "$1" "https://transfer.sh/$2") || { echo -e "\033[31m Failure!\033[37m"; return 1;}
+    echo -e "\033[32m Transfer File URL: "$response" \n" 
+  done
 }
 
 # Download function
