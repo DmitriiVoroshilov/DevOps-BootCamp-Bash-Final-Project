@@ -30,7 +30,7 @@ single_download() {
     echo "Creating missing directory..."
     mkdir -p "$2/$3"
   fi
-  echo "Downloading "$4""
+  echo " Downloading "$4""
   d_response=$(curl --progress-bar --create-dirs -o "$4" "https://transfer.sh/" --output-dir ./"$2"/"$3") || { echo -e "\033[31m Failure!\033[37m"; return 1;}
   printDownloadResponse
 }
@@ -52,8 +52,7 @@ help() {
           -v  Show the app version.
                        
                 \033[33m Examples:
-                \033[37m<./transfer.sh test.txt>
-                      \033[33mto upload single file.
+                \033[37m<./transfer.sh test.txt>                         \033[33mto upload single file.
                 \033[37m<./transfer.sh test.txt test2.txt ...>           \033[33mto upload multiple files.
                 \033[37m<./transfer.sh -d ./test <directory> test.txt >  \033[33mto dowload single file from the transfer.sh to the specified directory.
                 \033[37m<./transfer.sh -v>                               \033[33mto see application version.
